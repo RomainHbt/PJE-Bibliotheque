@@ -1,4 +1,4 @@
-package fr.univ_lille1.giraudet_hembert.bibliotheque;
+package fr.univ_lille1.giraudet_hembert.bibliotheque.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import fr.univ_lille1.giraudet_hembert.bibliotheque.R;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.model.Book;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.model.BookCollection;
 

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Bibliotheque</string>
     <string name="book_image">Cachuète</string>
+    <string name="title_activity_test">Test</string>
 </resources>
