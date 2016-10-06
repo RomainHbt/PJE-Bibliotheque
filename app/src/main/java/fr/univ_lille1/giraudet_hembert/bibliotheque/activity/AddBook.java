@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import fr.univ_lille1.giraudet_hembert.bibliotheque.R;
@@ -16,16 +17,70 @@ public class AddBook extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
+
+        final EditText author = (EditText) findViewById(R.id.add_book_author_edittext);
+        author.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(author.getText().toString().length() == 0 && !hasFocus){
+                    author.setError("Veuillez remplir ce champ.");
+                }
+            }
+        });
+
+        final EditText title = (EditText) findViewById(R.id.add_book_name_edittext);
+        title.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(title.getText().toString().length() == 0 && !hasFocus){
+                    title.setError("Veuillez remplir ce champ.");
+                }
+            }
+        });
+
+        final EditText isbn = (EditText) findViewById(R.id.add_book_isbn_edittext);
+        isbn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(isbn.getText().toString().length() != 13 && !hasFocus){
+                    isbn.setError("L'ISBN doit contenir 13 chiffres.");
+                }
+            }
+        });
+
     }
 
+
+
     public void validateNewBook(View view) {
-        TextView author = (TextView) findViewById(R.id.add_book_author_edittext);
-        TextView title = (TextView) findViewById(R.id.add_book_name_edittext);
-        TextView isbn = (TextView) findViewById(R.id.add_book_isbn_edittext);
-        Book newBook = new Book(author.getText().toString(), title.getText().toString(), isbn.getText().toString());
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra("newBook", newBook);
-        setResult(Activity.RESULT_OK, returnIntent);
-        finish();
+        EditText author = (EditText) findViewById(R.id.add_book_author_edittext);
+        boolean hasError = false;
+
+        if(author.getText().toString().length() == 0){
+            hasError = true;
+            author.setError("Veuillez remplir ce champ.");
+        }
+
+        EditText title = (EditText) findViewById(R.id.add_book_name_edittext);
+
+        if(title.getText().toString().length() == 0){
+            hasError = true;
+            title.setError("Veuillez remplir ce champ.");
+        }
+
+        EditText isbn = (EditText) findViewById(R.id.add_book_isbn_edittext);
+
+        if(isbn.getText().toString().length() != 13) {
+            hasError = true;
+            isbn.setError("L'ISBN doit contenir 13 chiffres.");
+        }
+
+        if(!hasError) {
+            Book newBook = new Book(author.getText().toString(), title.getText().toString(), isbn.getText().toString());
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("newBook", newBook);
+            setResult(Activity.RESULT_OK, returnIntent);
+            finish();
+        }
     }
 }

@@ -60,7 +60,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/add_book_isbn_hint"
-            android:inputType="textPersonName" />
+            android:maxLength="13"
+            android:inputType="number" />
 
     </TableRow>
 
