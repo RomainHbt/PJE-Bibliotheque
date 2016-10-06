@@ -1,10 +1,12 @@
 package fr.univ_lille1.giraudet_hembert.bibliotheque.model;
 
+import java.io.Serializable;
+
 /**
  * Created by hembert on 29/09/16.
  */
 
-public class Book {
+public class Book implements Serializable {
 
     protected String author;
     protected String title;
@@ -41,4 +43,23 @@ public class Book {
         this.isbn = isbn;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        return this.hashCode() == obj.hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + (getAuthor() != null ? getAuthor().hashCode() : 0);
+        hash = 59 * hash + (getTitle() != null ? getTitle().hashCode() : 0);
+        hash = 59 * hash + (getIsbn() != null ? getIsbn().hashCode() : 0);
+        return hash;
+    }
 }

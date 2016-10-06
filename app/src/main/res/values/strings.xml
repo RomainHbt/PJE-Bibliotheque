@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Bibliotheque</string>
-    <string name="book_image">Cachuète</string>
+    <string name="book_image">Cacahuète</string>
     <string name="title_activity_test">Test</string>
+    <string name="add_book_title_text">Ajouter un livre</string>
+    <string name="add_book_author_hint">Auteur</string>
+    <string name="add_book_name_hint">Titre</string>
+    <string name="add_book_isbn_hint" >ISBN</string>
+    <string name="add_book_button_text">Ajouter</string>
 </resources>
