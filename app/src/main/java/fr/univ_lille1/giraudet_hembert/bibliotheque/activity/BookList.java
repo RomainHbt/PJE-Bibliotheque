@@ -19,29 +19,23 @@ import fr.univ_lille1.giraudet_hembert.bibliotheque.model.BookCollection;
 public class BookList extends AppCompatActivity {
 
     //À changer
-    public BookCollection books = new BookCollection();
+    public static BookCollection books = new BookCollection();
+    public static List<Map<String, String>> listOfBook = new ArrayList<>();
+
     static final int ADD_BOOK_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_book_list);
-
-        books.add(new Book("Giraudet", "Tondeuse", "123"));
-        books.add(new Book("Hembert", "Voiture", "456"));
-        books.add(new Book("Cuvilliers", "Dormir", "656"));
-
-        updateBookList();
     }
 
     /**
      * Met à jour la liste des livres
      */
-    public void updateBookList() {
-        // Recherche la vue affichant la liste
-        ListView bookList = (ListView) findViewById(R.id.booklist);
-        List<Map<String, String>> listOfBook = new ArrayList<Map<String, String>>();
-
+    public static void updateBookList() {
+        listOfBook.clear();
         for (Book book : books.getBooks()) {
             Map<String, String> bookMap = new HashMap<String, String>();
             bookMap.put("img", String.valueOf(R.mipmap.ic_launcher)); // use available img
@@ -50,13 +44,6 @@ public class BookList extends AppCompatActivity {
             bookMap.put("isbn", book.getIsbn());
             listOfBook.add(bookMap);
         }
-
-        // Cree un adapter faisant le lien entre la liste d'élément et la ListView servant à l'affichage.
-        SimpleAdapter listAdapter = new SimpleAdapter(this.getBaseContext(), listOfBook, R.layout.book_detail,
-                new String[] {"img", "author", "title", "isbn"},
-                new int[] {R.id.img, R.id.author, R.id.title, R.id.isbn});
-        //Associe l’adapter et le ListView
-        bookList.setAdapter(listAdapter);
     }
 
     /**

@@ -1,26 +1,6 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="fr.univ_lille1.giraudet_hembert.bibliotheque.activity.BookList" >
-
-    <include layout="@layout/content_book_list"/>
-
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        app:fabSize="mini"
-        app:srcCompat="@android:drawable/ic_input_add"
-        android:id="@+id/floatingActionButton2"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="16dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        app:backgroundTint="?attr/actionModeSplitBackground"
-        android:tint="@android:color/background_light"
-        android:onClick="addNewBook" />
-
-
-</RelativeLayout>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <fragment class="fr.univ_lille1.giraudet_hembert.bibliotheque.fragment.BookFragment"
+        android:id="@+id/titles"
+        android:layout_width="match_parent" android:layout_height="match_parent" />
+</FrameLayout>
