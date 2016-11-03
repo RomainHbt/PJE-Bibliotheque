@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 public class Book implements Serializable {
 
+    protected long id;
     protected String author;
     protected String title;
     protected String isbn;
@@ -24,6 +25,12 @@ public class Book implements Serializable {
         this.isbn = isbn;
     }
 
+    public long getId() {
+        return id;
+    }
+    public void setId(long id) {
+        this.id = id;
+    }
     public String getAuthor() {
         return author;
     }
