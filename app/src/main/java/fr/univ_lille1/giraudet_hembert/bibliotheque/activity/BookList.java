@@ -19,7 +19,7 @@ import fr.univ_lille1.giraudet_hembert.bibliotheque.model.Book;
 public class BookList extends AppCompatActivity {
 
     //À changer
-    public List<Book> books = new ArrayList<>();
+    public static List<Book> books = new ArrayList<>();
     private BooksDataSource dataSource;
     static final int ADD_BOOK_REQUEST = 1;
 
@@ -30,8 +30,7 @@ public class BookList extends AppCompatActivity {
 
         dataSource = new BooksDataSource(this);
         books = dataSource.getAllBooks();
-
-        updateBookList();
+	updateBookList();
     }
 
     @Override
@@ -57,7 +56,6 @@ public class BookList extends AppCompatActivity {
      */
     public void updateBookList() {
         // Recherche la vue affichant la liste
-        ListView bookList = (ListView) findViewById(R.id.booklist);
         List<Map<String, String>> listOfBook = new ArrayList<Map<String, String>>();
 
         for (Book book : books) {
@@ -68,13 +66,6 @@ public class BookList extends AppCompatActivity {
             bookMap.put("isbn", book.getIsbn());
             listOfBook.add(bookMap);
         }
-
-        // Cree un adapter faisant le lien entre la liste d'élément et la ListView servant à l'affichage.
-        SimpleAdapter listAdapter = new SimpleAdapter(this.getBaseContext(), listOfBook, R.layout.book_detail,
-                new String[] {"img", "author", "title", "isbn"},
-                new int[] {R.id.img, R.id.author, R.id.title, R.id.isbn});
-        //Associe l’adapter et le ListView
-        bookList.setAdapter(listAdapter);
     }
 
     /**
