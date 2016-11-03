@@ -13,13 +13,14 @@ import java.util.List;
 import java.util.Map;
 
 import fr.univ_lille1.giraudet_hembert.bibliotheque.R;
+import fr.univ_lille1.giraudet_hembert.bibliotheque.database.BooksDataSource;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.model.Book;
-import fr.univ_lille1.giraudet_hembert.bibliotheque.model.BookCollection;
 
 public class BookList extends AppCompatActivity {
 
     //À changer
-    public BookCollection books = new BookCollection();
+    public List<Book> books = new ArrayList<>();
+    private BooksDataSource dataSource;
     static final int ADD_BOOK_REQUEST = 1;
 
     @Override
@@ -27,11 +28,28 @@ public class BookList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_list);
 
-        books.add(new Book("Giraudet", "Tondeuse", "123"));
-        books.add(new Book("Hembert", "Voiture", "456"));
-        books.add(new Book("Cuvilliers", "Dormir", "656"));
+        dataSource = new BooksDataSource(this);
+        books = dataSource.getAllBooks();
 
         updateBookList();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //dataSource.close();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //dataSource = new BooksDataSource(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        dataSource.close();
+        super.onDestroy();
     }
 
     /**
@@ -42,7 +60,7 @@ public class BookList extends AppCompatActivity {
         ListView bookList = (ListView) findViewById(R.id.booklist);
         List<Map<String, String>> listOfBook = new ArrayList<Map<String, String>>();
 
-        for (Book book : books.getBooks()) {
+        for (Book book : books) {
             Map<String, String> bookMap = new HashMap<String, String>();
             bookMap.put("img", String.valueOf(R.mipmap.ic_launcher)); // use available img
             bookMap.put("author", book.getAuthor());
@@ -83,6 +101,7 @@ public class BookList extends AppCompatActivity {
                 Book newBook = (Book) data.getExtras().get("newBook");
                 if(!books.contains(newBook)){
                     books.add(newBook);
+                    dataSource.createBook(newBook);
                     updateBookList();
                 } else {
                     // Popup avertissant de l'existance du livre
