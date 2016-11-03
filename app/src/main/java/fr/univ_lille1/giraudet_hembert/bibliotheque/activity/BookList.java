@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,17 +18,15 @@ public class BookList extends AppCompatActivity {
 
     //À changer
     public static List<Book> books = new ArrayList<>();
-    private BooksDataSource dataSource;
+    public static List<Map<String, String>> listOfBook = new ArrayList<>();
+    public static BooksDataSource dataSource;
     static final int ADD_BOOK_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_book_list);
-
         dataSource = new BooksDataSource(this);
-        books = dataSource.getAllBooks();
-	updateBookList();
+        setContentView(R.layout.activity_book_list);
     }
 
     @Override
@@ -54,9 +50,8 @@ public class BookList extends AppCompatActivity {
     /**
      * Met à jour la liste des livres
      */
-    public void updateBookList() {
-        // Recherche la vue affichant la liste
-        List<Map<String, String>> listOfBook = new ArrayList<Map<String, String>>();
+    public static void updateBookList() {
+        listOfBook.clear();
 
         for (Book book : books) {
             Map<String, String> bookMap = new HashMap<String, String>();

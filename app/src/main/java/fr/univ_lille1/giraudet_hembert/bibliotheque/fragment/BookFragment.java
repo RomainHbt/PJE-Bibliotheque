@@ -11,6 +11,7 @@ import android.widget.SimpleAdapter;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.R;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.activity.BookList;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.activity.DetailsActivity;
+import fr.univ_lille1.giraudet_hembert.bibliotheque.database.BooksDataSource;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.model.Book;
 
 public class BookFragment extends ListFragment {
@@ -22,10 +23,7 @@ public class BookFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        BookList.books.add(new Book("Giraudet", "Tondeuse", "123"));
-        BookList.books.add(new Book("Hembert", "Voiture", "456"));
-        BookList.books.add(new Book("Cuvilliers", "Dormir", "656"));
-
+        BookList.books = BookList.dataSource.getAllBooks();
         BookList.updateBookList();
 
         setListAdapter(new SimpleAdapter(getActivity(), BookList.listOfBook, R.layout.book_list_item,

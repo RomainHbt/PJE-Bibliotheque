@@ -9,6 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import fr.univ_lille1.giraudet_hembert.bibliotheque.R;
+import fr.univ_lille1.giraudet_hembert.bibliotheque.activity.BookList;
+import fr.univ_lille1.giraudet_hembert.bibliotheque.model.Book;
+
 public class DetailsFragment extends Fragment {
 
     /**
@@ -33,24 +37,19 @@ public class DetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if (container == null) {
-            // We have different layouts, and in one of them this
-            // fragment's containing frame doesn't exist.  The fragment
-            // may still be created from its saved state, but there is
-            // no reason to try to create its view hierarchy because it
-            // won't be displayed.  Note this is not needed -- we could
-            // just run the code below, where we would create and return
-            // the view hierarchy; it would just never be used.
-            return null;
-        }
+        Book book = BookList.books.get(getShownIndex());
 
-        ScrollView scroller = new ScrollView(getActivity());
-        TextView text = new TextView(getActivity());
         int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 4, getActivity().getResources().getDisplayMetrics());
-        text.setPadding(padding, padding, padding, padding);
-        scroller.addView(text);
-        text.setText("Index: " + getShownIndex());
+
+        ScrollView scroller = new ScrollView(getActivity());
+
+        TextView title = new TextView(getActivity());
+        title.setPadding(padding, padding, padding, padding);
+        scroller.addView(title);
+
+        title.setText("Titre: " + book.getTitle() +"\nAuteur: " + book.getAuthor() + "\nISBN: " + book.getIsbn());
+
         return scroller;
     }
 }
