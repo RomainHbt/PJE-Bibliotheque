@@ -12,6 +12,7 @@ import java.util.Map;
 
 import fr.univ_lille1.giraudet_hembert.bibliotheque.R;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.database.BooksDataSource;
+import fr.univ_lille1.giraudet_hembert.bibliotheque.fragment.DetailsFragment;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.model.Book;
 
 public class BookList extends AppCompatActivity {

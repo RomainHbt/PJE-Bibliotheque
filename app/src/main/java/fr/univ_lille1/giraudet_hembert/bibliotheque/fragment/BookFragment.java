@@ -19,6 +19,8 @@ public class BookFragment extends ListFragment {
     boolean mDualPane;
     int mCurCheckPosition = 0;
 
+    public static SimpleAdapter adapter;
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -26,9 +28,11 @@ public class BookFragment extends ListFragment {
         BookList.books = BookList.dataSource.getAllBooks();
         BookList.updateBookList();
 
-        setListAdapter(new SimpleAdapter(getActivity(), BookList.listOfBook, R.layout.book_list_item,
+        adapter = new SimpleAdapter(getActivity(), BookList.listOfBook, R.layout.book_list_item,
                 new String[] {"img", "author", "title", "isbn"},
-                new int[] {R.id.img, R.id.author, R.id.title, R.id.isbn}));
+                new int[] {R.id.img, R.id.author, R.id.title, R.id.isbn});
+
+        setListAdapter(adapter);
 
         // Check to see if we have a frame in which to embed the details
         // fragment directly in the containing UI.

@@ -50,8 +50,6 @@ public class AddBook extends AppCompatActivity {
 
     }
 
-
-
     public void validateNewBook(View view) {
         EditText author = (EditText) findViewById(R.id.add_book_author_edittext);
         boolean hasError = false;

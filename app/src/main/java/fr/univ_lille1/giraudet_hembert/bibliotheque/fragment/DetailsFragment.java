@@ -39,6 +39,8 @@ public class DetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if(BookList.books.isEmpty()) { return inflater.inflate(R.layout.book_detail, container,false); }
+
         final Book book = BookList.books.get(getShownIndex());
 
         View myInflatedView = inflater.inflate(R.layout.book_detail, container,false);
@@ -49,6 +51,16 @@ public class DetailsFragment extends Fragment {
         title.setText(book.getTitle());
         EditText isbn = (EditText) myInflatedView.findViewById(R.id.book_details_isbn_edittext);
         isbn.setText(book.getIsbn());
+        Button button = (Button) myInflatedView.findViewById(R.id.book_details_delete_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BookList.books.remove(book);
+                BookList.dataSource.deleteBook(book);
+                BookList.updateBookList();
+                BookFragment.adapter.notifyDataSetChanged();
+            }
+        });
 
         return myInflatedView;
     }
