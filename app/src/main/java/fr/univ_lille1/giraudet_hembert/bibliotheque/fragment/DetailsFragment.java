@@ -6,6 +6,8 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -37,19 +39,17 @@ public class DetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Book book = BookList.books.get(getShownIndex());
+        final Book book = BookList.books.get(getShownIndex());
 
-        int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                4, getActivity().getResources().getDisplayMetrics());
+        View myInflatedView = inflater.inflate(R.layout.book_detail, container,false);
 
-        ScrollView scroller = new ScrollView(getActivity());
+        EditText author = (EditText) myInflatedView.findViewById(R.id.book_details_author_edittext);
+        author.setText(book.getAuthor());
+        EditText title = (EditText) myInflatedView.findViewById(R.id.book_details_title_edittext);
+        title.setText(book.getTitle());
+        EditText isbn = (EditText) myInflatedView.findViewById(R.id.book_details_isbn_edittext);
+        isbn.setText(book.getIsbn());
 
-        TextView title = new TextView(getActivity());
-        title.setPadding(padding, padding, padding, padding);
-        scroller.addView(title);
-
-        title.setText("Titre: " + book.getTitle() +"\nAuteur: " + book.getAuthor() + "\nISBN: " + book.getIsbn());
-
-        return scroller;
+        return myInflatedView;
     }
 }
