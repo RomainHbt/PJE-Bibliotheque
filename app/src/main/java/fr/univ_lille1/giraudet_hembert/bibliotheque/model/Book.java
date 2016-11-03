@@ -12,6 +12,8 @@ public class Book implements Serializable {
     protected String author;
     protected String title;
     protected String isbn;
+    protected String description;
+    protected String imageUrl;
 
     /**
      * @param author
@@ -49,6 +51,10 @@ public class Book implements Serializable {
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
+    public String getImageUrl() { return imageUrl; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
     @Override
     public boolean equals(Object obj) {
