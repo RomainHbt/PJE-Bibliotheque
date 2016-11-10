@@ -63,6 +63,22 @@ public class BooksDataSource {
     }
 
     /**
+     * Modifie un livre existant
+     * @param book Livre à modifier
+     */
+    public void updateBook(Book book) {
+        ContentValues values = new ContentValues();
+        values.put("author", book.getAuthor());
+        values.put("title", book.getTitle());
+        values.put("isbn", book.getIsbn());
+
+        String selection = DbHelper.COLUMN_ID + " LIKE ?";
+        String[] selectionArgs = { String.valueOf(book.getId()) };
+
+        database.update(DbHelper.TABLE_BOOKS, values, selection, selectionArgs);
+    }
+
+    /**
      * Retourne tous les livres de la BDD
      * @return une liste de Book
      */

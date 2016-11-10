@@ -3,6 +3,14 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/book_details_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/book_image"
+        android:padding="10dp"
+        android:layout_gravity="center" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -59,9 +67,11 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/book_details_isbn_edittext" />
+            android:id="@+id/book_details_isbn_edittext"
+            android:maxLength="13"
+            android:inputType="number" />
+
     </LinearLayout>
 
     <Button
