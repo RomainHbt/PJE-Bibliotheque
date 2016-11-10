@@ -17,6 +17,12 @@
         </activity>
         <activity android:name=".activity.AddBook" />
         <activity android:name=".activity.DetailsActivity" />
+        <activity
+            android:name=".activity.SearchForm"
+            android:label="@string/title_activity_search"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
