@@ -8,4 +8,12 @@
     <string name="add_book_isbn_hint">ISBN</string>
     <string name="add_book_button_text">Ajouter</string>
     <string name="title_activity_search">Search</string>
+    <string name="app_label">app_label</string>
+    <string name="search_hint">search_hint</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="action_add">Ajouter</string>
+    <string name="action_search">Rechercher</string>
+    <string name="simple_search">Recherche simple</string>
+    <string name="barcode_search">Scanner un code barre</string>
+    <string name="avanced_search">Recherche avancée</string>
 </resources>

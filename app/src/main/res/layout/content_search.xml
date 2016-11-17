@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:app2=""
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content_search"
     android:layout_width="match_parent"
@@ -35,10 +34,11 @@
                 android:hint="Rechercher ..." />
         </GridLayout>
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/resultListView"
-            android:headerDividersEnabled="false" />
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent" android:layout_height="match_parent">
+            <fragment class="fr.univ_lille1.giraudet_hembert.bibliotheque.fragment.SearchListFragment"
+                    android:id="@+id/resultListView"
+                    android:layout_width="match_parent" android:layout_height="match_parent" />
+        </FrameLayout>
     </LinearLayout>
 </RelativeLayout>

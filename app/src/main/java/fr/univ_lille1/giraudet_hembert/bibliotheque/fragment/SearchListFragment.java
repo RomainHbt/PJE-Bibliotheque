@@ -11,8 +11,13 @@ import android.widget.SimpleAdapter;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.R;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.activity.BookList;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.activity.DetailsActivity;
+import fr.univ_lille1.giraudet_hembert.bibliotheque.activity.SearchForm;
 
-public class BookFragment extends ListFragment {
+/**
+ * Created by hembert on 17/11/16.
+ */
+
+public class SearchListFragment extends ListFragment {
 
     boolean mDualPane;
     int mCurCheckPosition = 0;
@@ -24,7 +29,7 @@ public class BookFragment extends ListFragment {
         BookList.books = BookList.dataSource.getAllBooks();
         BookList.updateBookList();
 
-        setListAdapter(new SimpleAdapter(getActivity(), BookList.listOfBook, R.layout.book_list_item,
+        setListAdapter(new SimpleAdapter(getActivity(), SearchForm.listOfBook, R.layout.book_list_item,
                 new String[] {"img", "author", "title", "isbn"},
                 new int[] {R.id.img, R.id.author, R.id.title, R.id.isbn}));
 
