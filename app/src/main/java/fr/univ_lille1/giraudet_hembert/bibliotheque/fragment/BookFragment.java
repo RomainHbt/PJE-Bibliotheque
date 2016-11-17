@@ -11,8 +11,6 @@ import android.widget.SimpleAdapter;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.R;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.activity.BookList;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.activity.DetailsActivity;
-import fr.univ_lille1.giraudet_hembert.bibliotheque.database.BooksDataSource;
-import fr.univ_lille1.giraudet_hembert.bibliotheque.model.Book;
 
 public class BookFragment extends ListFragment {
 

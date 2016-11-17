@@ -43,7 +43,7 @@ public class BooksDataSource {
     public long createBook(Book book) {
         // Crée un objet ContentValue utilisé pour transporter des valeurs
         ContentValues values = new ContentValues();
-        values.put("author", book.getAuthor());
+        values.put("author", book.getAuthors());
         values.put("title", book.getTitle());
         values.put("isbn", book.getIsbn());
 
@@ -68,7 +68,7 @@ public class BooksDataSource {
      */
     public void updateBook(Book book) {
         ContentValues values = new ContentValues();
-        values.put("author", book.getAuthor());
+        values.put("author", book.getAuthors());
         values.put("title", book.getTitle());
         values.put("isbn", book.getIsbn());
 
@@ -102,8 +102,7 @@ public class BooksDataSource {
      * @return Book venant du cursor
      */
     private Book cursorToBook(Cursor cursor) {
-        Book comment = new Book(cursor.getString(1), cursor.getString(2), cursor.getString(3));
-        comment.setId(cursor.getLong(0));
+        Book comment = new Book(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), null, null, null, 0, null, null, null, null);
         return comment;
     }
 

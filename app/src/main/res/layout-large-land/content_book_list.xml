@@ -4,9 +4,10 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <fragment class="fr.univ_lille1.giraudet_hembert.bibliotheque.fragment.BookFragment"
-        android:id="@+id/book_titles" android:layout_weight="1"
+        android:id="@+id/book_titles" android:layout_weight="0.63"
         android:layout_width="0px" android:layout_height="match_parent"
-        tools:layout="@android:layout/list_content" />
+        tools:layout="@android:layout/list_content"
+        />
 
     <FrameLayout android:id="@+id/book_details" android:layout_weight="1"
         android:layout_width="0px" android:layout_height="match_parent"

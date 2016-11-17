@@ -57,7 +57,7 @@ public class BookList extends AppCompatActivity {
         for (Book book : books) {
             Map<String, String> bookMap = new HashMap<String, String>();
             bookMap.put("img", String.valueOf(R.mipmap.ic_launcher)); // use available img
-            bookMap.put("author", book.getAuthor());
+            bookMap.put("author", book.getAuthors());
             bookMap.put("title", book.getTitle());
             bookMap.put("isbn", book.getIsbn());
             listOfBook.add(bookMap);

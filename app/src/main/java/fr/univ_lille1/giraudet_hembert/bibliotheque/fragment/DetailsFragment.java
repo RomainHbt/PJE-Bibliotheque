@@ -1,19 +1,18 @@
 package fr.univ_lille1.giraudet_hembert.bibliotheque.fragment;
 
-import android.app.Activity;
 import android.app.Fragment;
-import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ScrollView;
-import android.widget.TextView;
+import android.widget.MultiAutoCompleteTextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import fr.univ_lille1.giraudet_hembert.bibliotheque.R;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.activity.BookList;
@@ -60,7 +59,7 @@ public class DetailsFragment extends Fragment {
                 }
             }
         });
-        author.setText(book.getAuthor());
+        author.setText(book.getAuthors());
         final EditText title = (EditText) myInflatedView.findViewById(R.id.book_details_title_edittext);
         title.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -99,7 +98,7 @@ public class DetailsFragment extends Fragment {
                     isbn.setError("L'ISBN doit contenir 13 chiffres.");
                 }
                 if(!hasError) {
-                    book.setAuthor(author.getText().toString());
+                    book.setAuthors(author.getText().toString());
                     book.setTitle(title.getText().toString());
                     book.setIsbn(isbn.getText().toString());
                     BookList.dataSource.updateBook(book);
@@ -118,6 +117,17 @@ public class DetailsFragment extends Fragment {
                 BookFragment.adapter.notifyDataSetChanged();
             }
         });
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(myInflatedView.getContext(),
+                android.R.layout.simple_dropdown_item_1line, COUNTRIES);
+        MultiAutoCompleteTextView textView = (MultiAutoCompleteTextView) myInflatedView.findViewById(R.id.book_details_genre_autocomplete);
+        textView.setAdapter(adapter);
+        textView.setThreshold(1);
+        textView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
         return myInflatedView;
     }
+
+    private static final String[] COUNTRIES = new String[] {
+            "Belgium", "France", "Italy", "Germany", "Spain"
+    };
 }
