@@ -44,6 +44,27 @@ public class BookList extends AppCompatActivity {
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.simple_search:
+
+                return true;
+
+            case R.id.avanced_search:
+
+                return true;
+
+            case R.id.barcode_search:
+
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
         //dataSource.close();
@@ -79,12 +100,23 @@ public class BookList extends AppCompatActivity {
 
     /**
      * Fonction démarrant l'activité d'ajout de livre
-     * Appelée lors de l'appui dur le bouton "+" en bas à droite de la liste
+     * Appelée lors de l'appui sur le bouton "+" en bas à droite de la liste
      * @param view
      */
     public void addNewBook(View view) {
         Intent intent = new Intent(BookList.this, AddBook.class);
         startActivityForResult(intent, ADD_BOOK_REQUEST);
+    }
+
+    /**
+     * Fonction démarrant l'activité de recherche simple
+     * Appelée lors de l'appui sur "Recherche simple" dans le menu contextuel
+     * @param menuItem
+     */
+    public boolean goSimpleSearch(MenuItem menuItem) {
+        Intent intent = new Intent(BookList.this, SearchForm.class);
+        startActivityForResult(intent, ADD_BOOK_REQUEST);
+        return true;
     }
 
     /**

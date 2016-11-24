@@ -75,4 +75,12 @@ public class Book implements Serializable {
         hash = 59 * hash + (getIsbn() != null ? getIsbn().hashCode() : 0);
         return hash;
     }
+
+    @Override
+    public String toString() {
+        String res = "";
+        res += "Authors : "+this.getAuthor()+"\n";
+        res += "Title : "+this.getTitle()+"\n";
+        return res;
+    }
 }

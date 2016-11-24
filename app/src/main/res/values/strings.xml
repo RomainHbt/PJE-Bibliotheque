@@ -16,4 +16,8 @@
     <string name="simple_search">Recherche simple</string>
     <string name="barcode_search">Scanner un code barre</string>
     <string name="avanced_search">Recherche avancée</string>
+    <string name="title_activity_test_navigation">TestNavigation</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
