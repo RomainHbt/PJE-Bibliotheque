@@ -2,35 +2,55 @@ package fr.univ_lille1.giraudet_hembert.bibliotheque.fragment;
 
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import fr.univ_lille1.giraudet_hembert.bibliotheque.R;
+import fr.univ_lille1.giraudet_hembert.bibliotheque.activity.AddBook;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.activity.BookList;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.activity.DetailsActivity;
+import fr.univ_lille1.giraudet_hembert.bibliotheque.model.Book;
+
+import static android.app.Activity.RESULT_OK;
 
 public class BookFragment extends ListFragment {
 
     boolean mDualPane;
     int mCurCheckPosition = 0;
 
-    public static SimpleAdapter adapter;
+    protected BookList parent;
+
+    public SimpleAdapter adapter;
+
+    static final int ADD_BOOK_REQUEST = 1;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        BookList.books = BookList.dataSource.getAllBooks();
-        BookList.updateBookList();
+        this.parent = (BookList) getActivity();
 
-        adapter = new SimpleAdapter(getActivity(), BookList.listOfBook, R.layout.book_list_item,
+        parent.books = parent.dataSource.getAllBooks();
+        parent.updateBookList();
+
+        adapter = new SimpleAdapter(getActivity(), parent.listOfBook, R.layout.book_list_item,
                 new String[] {"img", "author", "title", "isbn"},
                 new int[] {R.id.img, R.id.author, R.id.title, R.id.isbn});
 
         setListAdapter(adapter);
+
+        final View addNewBook = parent.findViewById(R.id.book_list_add_button);
+        addNewBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addNewBook(v);
+            }
+        });
 
         // Check to see if we have a frame in which to embed the details
         // fragment directly in the containing UI.
@@ -79,7 +99,7 @@ public class BookFragment extends ListFragment {
                     getFragmentManager().findFragmentById(R.id.book_details);
             if (details == null || details.getShownIndex() != index) {
                 // Make new fragment to show this selection.
-                details = DetailsFragment.newInstance(index);
+                details = DetailsFragment.newInstance(index, this);
 
                 // Execute a transaction, replacing any existing fragment
                 // with this one inside the frame.
@@ -100,6 +120,40 @@ public class BookFragment extends ListFragment {
             intent.setClass(getActivity(), DetailsActivity.class);
             intent.putExtra("index", index);
             startActivity(intent);
+        }
+    }
+
+    /**
+     * Fonction démarrant l'activité d'ajout de livre
+     * Appelée lors de l'appui dur le bouton "+" en bas à droite de la liste
+     * @param view
+     */
+    public void addNewBook(View view) {
+        Intent intent = new Intent(getActivity(), AddBook.class);
+        startActivityForResult(intent, ADD_BOOK_REQUEST);
+    }
+
+    /**
+     * Appelée lors du retour à cette activité lors de la fin d'une autre activité
+     * @param requestCode Code envoyé depuis l'ancienne activité
+     * @param resultCode Code de résultat
+     * @param data Intent de l'ancienne activité
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //Ajout d'un livre
+        if (requestCode == ADD_BOOK_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Book newBook = (Book) data.getExtras().get("newBook");
+                if(!parent.books.contains(newBook)){
+                    parent.books.add(newBook);
+                    parent.dataSource.createBook(newBook);
+                    parent.updateBookList();
+                    showDetails(mCurCheckPosition+1);
+                } else {
+                    // Popup avertissant de l'existance du livre
+                }
+            }
         }
     }
 }

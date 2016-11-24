@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
+import fr.univ_lille1.giraudet_hembert.bibliotheque.fragment.BookFragment;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.fragment.DetailsFragment;
 
 /**
@@ -18,8 +19,6 @@ public class DetailsActivity extends Activity {
 
         if (getResources().getConfiguration().orientation
                 == Configuration.ORIENTATION_LANDSCAPE) {
-            // If the screen is now in landscape mode, we can show the
-            // dialog in-line with the list so we don't need this activity.
             finish();
             return;
         }
@@ -27,6 +26,7 @@ public class DetailsActivity extends Activity {
         if (savedInstanceState == null) {
             // During initial setup, plug in the details fragment.
             DetailsFragment details = new DetailsFragment();
+            details.setParent((BookList)getParent());
             details.setArguments(getIntent().getExtras());
             getFragmentManager().beginTransaction().add(android.R.id.content, details).commit();
         }

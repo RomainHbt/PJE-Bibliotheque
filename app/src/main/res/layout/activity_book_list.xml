@@ -13,14 +13,13 @@
         android:clickable="true"
         app:fabSize="mini"
         app:srcCompat="@android:drawable/ic_input_add"
-        android:id="@+id/floatingActionButton2"
+        android:id="@+id/book_list_add_button"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="16dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         app:backgroundTint="?attr/actionModeSplitBackground"
-        android:tint="@android:color/background_light"
-        android:onClick="addNewBook" />
+        android:tint="@android:color/background_light" />
 
 
 </RelativeLayout>
