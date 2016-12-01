@@ -22,7 +22,7 @@ public class Book implements Serializable {
      */
     public Book(String author, String title, String isbn) {
         super();
-        this.author = author;
+        this.author = author.replaceAll("\"", "");
         this.title = title;
         this.isbn = isbn;
     }
@@ -37,7 +37,7 @@ public class Book implements Serializable {
         return author;
     }
     public void setAuthor(String author) {
-        this.author = author;
+        this.author = author.replaceAll("\"", "");
     }
     public String getTitle() {
         return title;
