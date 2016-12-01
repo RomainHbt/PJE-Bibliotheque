@@ -17,6 +17,7 @@ import java.util.List;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.R;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.activity.BookList;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.model.Book;
+import fr.univ_lille1.giraudet_hembert.bibliotheque.model.BookCollection;
 
 public class DetailsFragment extends Fragment {
 
@@ -35,7 +36,6 @@ public class DetailsFragment extends Fragment {
         f.setArguments(args);
 
         f.setList(list);
-        f.setParent(list.parent);
 
         return f;
     }
@@ -63,12 +63,12 @@ public class DetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if(parent.books.isEmpty()) { return inflater.inflate(R.layout.book_detail, container,false); }
+        BookCollection collec = BookCollection.getInstance();
+        if(collec.isEmpty()) { return inflater.inflate(R.layout.book_detail, container,false); }
 
-        final Book book = parent.books.get(getShownIndex());
+        final Book book = collec.get(getShownIndex());
 
         View myInflatedView = inflater.inflate(R.layout.book_detail, container,false);
-
 
         ImageView image = (ImageView) myInflatedView.findViewById(R.id.book_details_img);
         image.setImageResource(R.mipmap.ic_launcher);
@@ -120,11 +120,8 @@ public class DetailsFragment extends Fragment {
                     isbn.setError("L'ISBN doit contenir 13 chiffres.");
                 }
                 if(!hasError) {
-                    book.setAuthors(author.getText().toString());
-                    book.setTitle(title.getText().toString());
-                    book.setIsbn(isbn.getText().toString());
-                    parent.dataSource.updateBook(book);
-                    parent.updateBookList();
+                    Book newBook = new Book(author.getText().toString(), title.getText().toString(), isbn.getText().toString());
+                    BookCollection.getInstance().update(book,newBook);
                     list.adapter.notifyDataSetChanged();
                 }
             }
@@ -133,9 +130,7 @@ public class DetailsFragment extends Fragment {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                parent.books.remove(book);
-                parent.dataSource.deleteBook(book);
-                parent.updateBookList();
+                BookCollection.getInstance().remove(book);
                 list.adapter.notifyDataSetChanged();
                 list.showDetails(getShownIndex()-1);
             }

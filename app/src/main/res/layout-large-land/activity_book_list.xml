@@ -6,27 +6,18 @@
     android:layout_height="match_parent"
     tools:context="fr.univ_lille1.giraudet_hembert.bibliotheque.activity.BookList">
 
-    <RelativeLayout
-        android:layout_weight="0.63"
-        android:layout_width="0px" android:layout_height="match_parent"
-        tools:layout="@android:layout/list_content" >
+    <include layout="@layout/content_book_list"/>
 
-        <android.support.design.widget.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            app:fabSize="mini"
-            app:srcCompat="@android:drawable/ic_input_add"
-            android:id="@+id/book_list_add_button"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="16dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            app:backgroundTint="?attr/actionModeSplitBackground"
-            android:tint="@android:color/background_light" />
-
-        </RelativeLayout>
-
-    <FrameLayout android:id="@+id/book_details" android:layout_weight="1"
-        android:layout_width="0px" android:layout_height="match_parent" />
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="219dp"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:srcCompat="@android:drawable/ic_input_add"
+        android:id="@+id/book_list_add_button"
+        app:backgroundTint="?attr/actionModeSplitBackground"
+        android:tint="@android:color/background_light"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="16px"
+        android:layout_marginLeft="30px"/>
 </LinearLayout>

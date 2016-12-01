@@ -15,6 +15,7 @@ import fr.univ_lille1.giraudet_hembert.bibliotheque.activity.AddBook;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.activity.BookList;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.activity.DetailsActivity;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.model.Book;
+import fr.univ_lille1.giraudet_hembert.bibliotheque.model.BookCollection;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -22,8 +23,6 @@ public class BookFragment extends ListFragment {
 
     boolean mDualPane;
     int mCurCheckPosition = 0;
-
-    protected BookList parent;
 
     public SimpleAdapter adapter;
 
@@ -33,18 +32,13 @@ public class BookFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        this.parent = (BookList) getActivity();
-
-        parent.books = parent.dataSource.getAllBooks();
-        parent.updateBookList();
-
-        adapter = new SimpleAdapter(getActivity(), parent.listOfBook, R.layout.book_list_item,
+        adapter = new SimpleAdapter(getActivity(), BookCollection.getInstance().getMapList(), R.layout.book_list_item,
                 new String[] {"img", "author", "title", "isbn"},
                 new int[] {R.id.img, R.id.author, R.id.title, R.id.isbn});
 
         setListAdapter(adapter);
 
-        final View addNewBook = parent.findViewById(R.id.book_list_add_button);
+        final View addNewBook = getActivity().findViewById(R.id.book_list_add_button);
         addNewBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,10 +139,7 @@ public class BookFragment extends ListFragment {
         if (requestCode == ADD_BOOK_REQUEST) {
             if (resultCode == RESULT_OK) {
                 Book newBook = (Book) data.getExtras().get("newBook");
-                if(!parent.books.contains(newBook)){
-                    parent.books.add(newBook);
-                    parent.dataSource.createBook(newBook);
-                    parent.updateBookList();
+                if(!BookCollection.getInstance().add(newBook)){
                     showDetails(mCurCheckPosition+1);
                 } else {
                     // Popup avertissant de l'existance du livre
