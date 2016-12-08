@@ -5,13 +5,18 @@ import android.app.ListFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.vision.barcode.Barcode;
+
 import fr.univ_lille1.giraudet_hembert.bibliotheque.R;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.activity.AddBook;
+import fr.univ_lille1.giraudet_hembert.bibliotheque.activity.BarcodeCaptureActivity;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.activity.BookList;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.activity.DetailsActivity;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.model.Book;
@@ -27,6 +32,7 @@ public class BookFragment extends ListFragment {
     public SimpleAdapter adapter;
 
     static final int ADD_BOOK_REQUEST = 1;
+    static final int RC_BARCODE_CAPTURE = 2;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -42,7 +48,8 @@ public class BookFragment extends ListFragment {
         addNewBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addNewBook(v);
+                //addNewBook(v);
+                scanBook(v);
             }
         });
 
@@ -127,6 +134,13 @@ public class BookFragment extends ListFragment {
         startActivityForResult(intent, ADD_BOOK_REQUEST);
     }
 
+    public void scanBook(View view) {
+        Intent intent = new Intent(getActivity(), BarcodeCaptureActivity.class);
+        intent.putExtra(BarcodeCaptureActivity.AutoFocus, true);
+        intent.putExtra(BarcodeCaptureActivity.UseFlash, false);
+        startActivityForResult(intent, RC_BARCODE_CAPTURE);
+    }
+
     /**
      * Appelée lors du retour à cette activité lors de la fin d'une autre activité
      * @param requestCode Code envoyé depuis l'ancienne activité
@@ -145,6 +159,24 @@ public class BookFragment extends ListFragment {
                     // Popup avertissant de l'existance du livre
                 }
             }
+        } else if(requestCode == RC_BARCODE_CAPTURE) {
+            if (resultCode == CommonStatusCodes.SUCCESS) {
+                if (data != null) {
+                    Barcode barcode = data.getParcelableExtra(BarcodeCaptureActivity.BarcodeObject);
+
+                    Log.d("Barcode:", "Barcode read: " + barcode.displayValue);
+                    Book newBook = new Book(barcode.displayValue, barcode.displayValue, "9999999999999");
+                    BookCollection.getInstance().add(newBook);
+                } else {
+                    //statusMessage.setText(R.string.barcode_failure);
+                    Log.d("Barcode:", "No barcode captured, intent data is null");
+                }
+            } else {
+                /*statusMessage.setText(String.format(getString(R.string.barcode_error),
+                        CommonStatusCodes.getStatusCodeString(resultCode)));*/
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 }

@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="fr.univ_lille1.giraudet_hembert.bibliotheque">
 
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,6 +21,7 @@
         </activity>
         <activity android:name=".activity.AddBook" />
         <activity android:name=".activity.DetailsActivity" />
+        <activity android:name=".activity.BarcodeCaptureActivity" />
     </application>
 
 </manifest>
