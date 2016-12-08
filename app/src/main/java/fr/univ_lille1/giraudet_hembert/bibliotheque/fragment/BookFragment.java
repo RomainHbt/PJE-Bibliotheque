@@ -140,7 +140,7 @@ public class BookFragment extends ListFragment {
             if (resultCode == RESULT_OK) {
                 Book newBook = (Book) data.getExtras().get("newBook");
                 if(!BookCollection.getInstance().add(newBook)){
-                    showDetails(mCurCheckPosition+1);
+                    showDetails(BookCollection.getInstance().indexOf(newBook));
                 } else {
                     // Popup avertissant de l'existance du livre
                 }

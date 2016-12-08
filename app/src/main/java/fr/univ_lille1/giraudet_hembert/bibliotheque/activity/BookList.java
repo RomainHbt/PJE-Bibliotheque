@@ -40,7 +40,7 @@ public class BookList extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        BookCollection.dataSource.close();
+        //BookCollection.dataSource.close();
         super.onDestroy();
     }
 }

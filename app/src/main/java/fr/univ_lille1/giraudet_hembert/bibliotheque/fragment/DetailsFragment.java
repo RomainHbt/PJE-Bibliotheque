@@ -2,6 +2,7 @@ package fr.univ_lille1.giraudet_hembert.bibliotheque.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,7 +65,9 @@ public class DetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         BookCollection collec = BookCollection.getInstance();
-        if(collec.isEmpty()) { return inflater.inflate(R.layout.book_detail, container,false); }
+
+        Log.d("ShownIndex:", ""+getShownIndex());
+        if(getShownIndex() < 0 || collec.size() == 0) { return inflater.inflate(R.layout.book_detail, container,false); }
 
         final Book book = collec.get(getShownIndex());
 

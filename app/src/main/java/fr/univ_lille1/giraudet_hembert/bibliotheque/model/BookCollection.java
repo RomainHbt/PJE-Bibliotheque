@@ -61,7 +61,7 @@ public class BookCollection extends ArrayList<Book> {
         boolean ret = super.remove(b);
         dataSource.deleteBook(b);
         updateMapList();
-        return super.remove(b);
+        return ret;
     }
 
     public List<Map<String, String>> getMapList() {

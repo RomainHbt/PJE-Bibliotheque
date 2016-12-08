@@ -8,16 +8,4 @@
 
     <include layout="@layout/content_book_list"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="219dp"
-        android:clickable="true"
-        app:fabSize="mini"
-        app:srcCompat="@android:drawable/ic_input_add"
-        android:id="@+id/book_list_add_button"
-        app:backgroundTint="?attr/actionModeSplitBackground"
-        android:tint="@android:color/background_light"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="16px"
-        android:layout_marginLeft="30px"/>
 </LinearLayout>
