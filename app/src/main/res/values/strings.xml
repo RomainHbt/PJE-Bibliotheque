@@ -20,4 +20,6 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="scan_barcode">Scanner un code barre</string>
+    <string name="like">J\'aime</string>
 </resources>

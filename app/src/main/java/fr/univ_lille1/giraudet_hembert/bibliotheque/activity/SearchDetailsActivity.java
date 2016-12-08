@@ -3,7 +3,10 @@ package fr.univ_lille1.giraudet_hembert.bibliotheque.activity;
 import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 
+import fr.univ_lille1.giraudet_hembert.bibliotheque.R;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.fragment.DetailsFragment;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.fragment.SearchDetailsFragment;
 

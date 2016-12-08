@@ -27,6 +27,7 @@ public class BookList extends AppCompatActivity {
     public static List<Map<String, String>> listOfBook = new ArrayList<>();
     public static BooksDataSource dataSource;
     static final int ADD_BOOK_REQUEST = 1;
+    static final int SIMPLE_SEARCH_REQUEST = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +116,7 @@ public class BookList extends AppCompatActivity {
      */
     public boolean goSimpleSearch(MenuItem menuItem) {
         Intent intent = new Intent(BookList.this, SearchForm.class);
-        startActivityForResult(intent, ADD_BOOK_REQUEST);
+        startActivityForResult(intent, SIMPLE_SEARCH_REQUEST);
         return true;
     }
 

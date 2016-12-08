@@ -22,8 +22,6 @@ import java.util.List;
 
 import fr.univ_lille1.giraudet_hembert.bibliotheque.activity.SearchForm;
 
-import static android.content.Context.INPUT_METHOD_SERVICE;
-
 /**
  * Created by hembert on 03/11/16.
  */
@@ -59,7 +57,7 @@ public class Search {
                     @Override
                     public void onResponse(String response) {
                         resultList = parseResult(response);
-                        SearchForm.updateBookList(resultList);
+                        //updateBookList(resultList);
                     }
                 },
                 new Response.ErrorListener() {
