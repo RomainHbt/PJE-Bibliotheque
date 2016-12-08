@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.univ_lille1.giraudet_hembert.bibliotheque.R;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.model.Book;
 
@@ -49,8 +52,6 @@ public class AddBook extends AppCompatActivity {
         });
 
     }
-
-
 
     public void validateNewBook(View view) {
         EditText author = (EditText) findViewById(R.id.add_book_author_edittext);

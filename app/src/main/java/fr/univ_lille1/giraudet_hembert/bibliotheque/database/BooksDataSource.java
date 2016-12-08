@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,12 +44,14 @@ public class BooksDataSource {
     public long createBook(Book book) {
         // Crée un objet ContentValue utilisé pour transporter des valeurs
         ContentValues values = new ContentValues();
-        values.put("author", book.getAuthor());
+        values.put("author", book.getAuthors());
         values.put("title", book.getTitle());
         values.put("isbn", book.getIsbn());
 
         // Insert la nouvelle valeur dans la DB. Recupere l'ID en retour
         long insertId = database.insert(DbHelper.TABLE_BOOKS, null, values);
+        Log.d("Log: ", ""+insertId);
+        book.setId(insertId);
         return insertId;
     }
 
@@ -60,6 +63,22 @@ public class BooksDataSource {
         long id = book.getId();
         System.out.println("Book deleted with id: " + id);
         database.delete(DbHelper.TABLE_BOOKS, DbHelper.COLUMN_ID + " = " + id, null);
+    }
+
+    /**
+     * Modifie un livre existant
+     * @param book Livre à modifier
+     */
+    public void updateBook(Book book) {
+        ContentValues values = new ContentValues();
+        values.put("author", book.getAuthors());
+        values.put("title", book.getTitle());
+        values.put("isbn", book.getIsbn());
+
+        String selection = DbHelper.COLUMN_ID + " LIKE ?";
+        String[] selectionArgs = { String.valueOf(book.getId()) };
+
+        database.update(DbHelper.TABLE_BOOKS, values, selection, selectionArgs);
     }
 
     /**
@@ -86,8 +105,7 @@ public class BooksDataSource {
      * @return Book venant du cursor
      */
     private Book cursorToBook(Cursor cursor) {
-        Book comment = new Book(cursor.getString(1), cursor.getString(2), cursor.getString(3));
-        comment.setId(cursor.getLong(0));
+        Book comment = new Book(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), null, null, null, 0, null, null, null, null);
         return comment;
     }
 
