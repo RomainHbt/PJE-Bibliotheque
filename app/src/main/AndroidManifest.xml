@@ -2,7 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="fr.univ_lille1.giraudet_hembert.bibliotheque">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+  
+  <uses-permission android:name="android.permission.INTERNET" />
+  
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.CAMERA" 
+    
 
     <application
         android:allowBackup="true"
@@ -35,6 +41,7 @@
                 android:value=".activity.BookList" />
         </activity>
         <activity android:name=".activity.SearchDetailsActivity"></activity>
+        <activity android:name=".activity.BarcodeCaptureActivity" />
     </application>
 
 </manifest>
