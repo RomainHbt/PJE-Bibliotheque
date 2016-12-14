@@ -72,13 +72,13 @@ public class SearchDetailsFragment extends DetailsFragment {
         }.execute();
 
         TextView author = (TextView) myInflatedView.findViewById(R.id.book_details_author_text);
-        author.setText(book.getAuthor());
+        author.setText(book.getAuthors());
         TextView title = (TextView) myInflatedView.findViewById(R.id.book_details_title_text);
         title.setText(book.getTitle());
         TextView isbn = (TextView) myInflatedView.findViewById(R.id.book_details_isbn_text);
         isbn.setText(book.getIsbn());
         TextView description = (TextView) myInflatedView.findViewById(R.id.book_details_description_text);
-        description.setText(book.getDescription());
+        description.setText(book.getSummary());
 
         return myInflatedView;
     }

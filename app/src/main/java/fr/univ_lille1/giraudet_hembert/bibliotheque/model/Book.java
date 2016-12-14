@@ -123,8 +123,6 @@ public class Book implements Serializable {
     }
     public String getImageUrl() { return imageUrl; }
     public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
 
     public void setSummary(String summary) {
         this.summary = summary;
@@ -190,7 +188,7 @@ public class Book implements Serializable {
     @Override
     public String toString() {
         String res = "";
-        res += "Authors : "+this.getAuthor()+"\n";
+        res += "Authors : "+this.getAuthors()+"\n";
         res += "Title : "+this.getTitle()+"\n";
         return res;
     }

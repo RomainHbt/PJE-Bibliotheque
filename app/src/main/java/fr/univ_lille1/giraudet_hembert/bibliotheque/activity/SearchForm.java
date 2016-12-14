@@ -111,7 +111,7 @@ public class SearchForm extends AppCompatActivity {
                 image.setImageBitmap(bmp);
 
             bookMap.put("img", String.valueOf(R.mipmap.ic_launcher)); // use available img
-            bookMap.put("author", book.getAuthor());
+            bookMap.put("author", book.getAuthors());
             bookMap.put("title", book.getTitle());
             bookMap.put("isbn", book.getIsbn());
             listOfBook.add(bookMap);
@@ -207,7 +207,7 @@ public class SearchForm extends AppCompatActivity {
                 }
 
                 Book book = new Book(authors, title, isbn);
-                book.setDescription(description);
+                book.setSummary(description);
                 book.setImageUrl(image);
 
                 resultList.add(book);

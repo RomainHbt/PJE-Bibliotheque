@@ -21,6 +21,7 @@ import fr.univ_lille1.giraudet_hembert.bibliotheque.activity.BookList;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.activity.DetailsActivity;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.model.Book;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.model.BookCollection;
+import fr.univ_lille1.giraudet_hembert.bibliotheque.model.Search;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -162,11 +163,8 @@ public class BookFragment extends ListFragment {
                 if (data != null) {
                     Barcode barcode = data.getParcelableExtra(BarcodeCaptureActivity.BarcodeObject);
 
-                    Log.d("Barcode:", "Barcode read: " + barcode.displayValue);
-                    Book newBook = new Book(barcode.displayValue, barcode.displayValue, barcode.displayValue);
-                    BookCollection.getInstance().add(newBook);
-                    adapter.notifyDataSetChanged();
-                    showDetails(BookCollection.getInstance().indexOf(newBook));
+                    Search search = new Search(getActivity(), barcode.displayValue, Search.ISBN_MODE);
+                    search.exec();
                 } else {
                     //statusMessage.setText(R.string.barcode_failure);
                     Log.d("Barcode:", "No barcode captured, intent data is null");

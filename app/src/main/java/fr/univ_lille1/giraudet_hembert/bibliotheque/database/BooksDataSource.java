@@ -47,7 +47,7 @@ public class BooksDataSource {
         values.put("author", book.getAuthors());
         values.put("title", book.getTitle());
         values.put("isbn", book.getIsbn());
-        values.put("description", book.getDescription());
+        values.put("description", book.getSummary());
         values.put("imageUrl", book.getImageUrl());
 
         // Insert la nouvelle valeur dans la DB. Recupere l'ID en retour
