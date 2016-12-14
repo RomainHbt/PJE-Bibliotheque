@@ -38,9 +38,7 @@ public class BookFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        adapter = new SimpleAdapter(getActivity(), BookCollection.getInstance().getMapList(), R.layout.book_list_item,
-                new String[] {"img", "author", "title", "isbn"},
-                new int[] {R.id.img, R.id.author, R.id.title, R.id.isbn});
+        adapter = BookCollection.getInstance().getAdapter();
 
         setListAdapter(adapter);
 
@@ -165,8 +163,10 @@ public class BookFragment extends ListFragment {
                     Barcode barcode = data.getParcelableExtra(BarcodeCaptureActivity.BarcodeObject);
 
                     Log.d("Barcode:", "Barcode read: " + barcode.displayValue);
-                    Book newBook = new Book(barcode.displayValue, barcode.displayValue, "9999999999999");
+                    Book newBook = new Book(barcode.displayValue, barcode.displayValue, barcode.displayValue);
                     BookCollection.getInstance().add(newBook);
+                    adapter.notifyDataSetChanged();
+                    showDetails(BookCollection.getInstance().indexOf(newBook));
                 } else {
                     //statusMessage.setText(R.string.barcode_failure);
                     Log.d("Barcode:", "No barcode captured, intent data is null");

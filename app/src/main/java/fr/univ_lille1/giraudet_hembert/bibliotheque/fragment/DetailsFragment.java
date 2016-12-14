@@ -66,7 +66,6 @@ public class DetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         BookCollection collec = BookCollection.getInstance();
 
-        Log.d("ShownIndex:", ""+getShownIndex());
         if(getShownIndex() < 0 || collec.size() == 0) { return inflater.inflate(R.layout.book_detail, container,false); }
 
         final Book book = collec.get(getShownIndex());
@@ -125,7 +124,10 @@ public class DetailsFragment extends Fragment {
                 if(!hasError) {
                     Book newBook = new Book(author.getText().toString(), title.getText().toString(), isbn.getText().toString());
                     BookCollection.getInstance().update(book,newBook);
-                    list.adapter.notifyDataSetChanged();
+                    if(list!=null)
+                        list.adapter.notifyDataSetChanged();
+                    else
+                        getActivity().finish();
                 }
             }
         });
@@ -134,8 +136,11 @@ public class DetailsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 BookCollection.getInstance().remove(book);
-                list.adapter.notifyDataSetChanged();
-                list.showDetails(getShownIndex()-1);
+                if(list!=null) {
+                    list.adapter.notifyDataSetChanged();
+                    list.showDetails(getShownIndex() - 1);
+                } else
+                    getActivity().finish();
             }
         });
 

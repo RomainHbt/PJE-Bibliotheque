@@ -1,5 +1,7 @@
 package fr.univ_lille1.giraudet_hembert.bibliotheque.model;
 
+import android.widget.SimpleAdapter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +17,8 @@ import fr.univ_lille1.giraudet_hembert.bibliotheque.database.BooksDataSource;
 public class BookCollection extends ArrayList<Book> {
     private static BookCollection ourInstance = new BookCollection();
 
-    public static BooksDataSource dataSource;
+    private static BooksDataSource dataSource;
+    private static SimpleAdapter adapter;
     private static List<Map<String, String>> mapList;
 
     public static BookCollection getInstance() {
@@ -27,7 +30,10 @@ public class BookCollection extends ArrayList<Book> {
         dataSource = new BooksDataSource(BookList.get());
         addAll(dataSource.getAllBooks());
         mapList = new ArrayList<>();
-
+        adapter = new SimpleAdapter(BookList.get(), mapList, R.layout.book_list_item,
+                new String[] {"img", "author", "title", "isbn"},
+                new int[] {R.id.img, R.id.author, R.id.title, R.id.isbn});
+        updateMapList();
     }
 
     private void updateMapList() {
@@ -41,6 +47,8 @@ public class BookCollection extends ArrayList<Book> {
             bookMap.put("isbn", book.getIsbn());
             mapList.add(bookMap);
         }
+
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -64,7 +72,7 @@ public class BookCollection extends ArrayList<Book> {
         return ret;
     }
 
-    public List<Map<String, String>> getMapList() {
-        return mapList;
+    public SimpleAdapter getAdapter() {
+        return adapter;
     }
 }
