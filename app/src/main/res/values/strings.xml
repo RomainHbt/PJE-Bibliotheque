@@ -5,8 +5,23 @@
     <string name="add_book_title_text">Ajouter un livre</string>
     <string name="add_book_author_hint">Auteur</string>
     <string name="add_book_name_hint">Titre</string>
-    <string name="add_book_isbn_hint" >ISBN</string>
+    <string name="add_book_isbn_hint">ISBN</string>
     <string name="add_book_button_text">Ajouter</string>
+    <string name="title_activity_search">Search</string>
+    <string name="app_label">app_label</string>
+    <string name="search_hint">search_hint</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="action_add">Ajouter</string>
+    <string name="action_search">Rechercher</string>
+    <string name="simple_search">Recherche simple</string>
+    <string name="barcode_search">Scanner un code barre</string>
+    <string name="avanced_search">Recherche avancée</string>
+    <string name="title_activity_test_navigation">TestNavigation</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="scan_barcode">Scanner un code barre</string>
+    <string name="like">J\'aime</string>
     <string name="ok">OK</string>
     <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
     <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- Settings, should always be in the overflow -->
+    <group android:id="@+id/search_menu">
+        <item android:id="@+id/simple_search"
+            android:title="@string/simple_search"
+            app:showAsAction="ifRoom"
+            android:checkable="false"
+            android:onClick="goSimpleSearch"/>
+        <item android:id="@+id/avanced_search"
+            android:title="@string/avanced_search"
+            app:showAsAction="ifRoom"
+            android:checkable="false" />
+        <item android:id="@+id/barcode_search"
+            android:title="@string/barcode_search"
+            app:showAsAction="ifRoom"
+            android:checkable="false" />
+    </group>
+</menu>

@@ -11,6 +11,7 @@ public class Book implements Serializable {
     protected String authors;
     protected String title;
     protected String isbn;
+    protected String imageUrl;
     protected String series;
     protected List<Integer> genreId;
     protected String editor;
@@ -120,6 +121,10 @@ public class Book implements Serializable {
     public String getSummary() {
         return summary;
     }
+    public String getImageUrl() { return imageUrl; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
     public void setSummary(String summary) {
         this.summary = summary;
@@ -180,5 +185,13 @@ public class Book implements Serializable {
         result = 31 * result + (illustrationsId != null ? illustrationsId.hashCode() : 0);
         result = 31 * result + (notes != null ? notes.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        String res = "";
+        res += "Authors : "+this.getAuthor()+"\n";
+        res += "Title : "+this.getTitle()+"\n";
+        return res;
     }
 }

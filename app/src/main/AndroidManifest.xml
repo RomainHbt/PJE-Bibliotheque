@@ -2,16 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="fr.univ_lille1.giraudet_hembert.bibliotheque">
 
+  
+  <uses-permission android:name="android.permission.INTERNET" />
+  
     <uses-feature android:name="android.hardware.camera" />
 
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CAMERA" 
+    
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".activity.BookList">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +25,22 @@
         </activity>
         <activity android:name=".activity.AddBook" />
         <activity android:name=".activity.DetailsActivity" />
+        <activity
+            android:name=".activity.SearchForm"
+            android:label="@string/title_activity_search"
+            android:parentActivityName=".activity.BookList">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.BookList" />
+        </activity>
+        <activity android:name=".activity.SearchDetailsActivity"></activity>
         <activity android:name=".activity.BarcodeCaptureActivity" />
     </application>
 

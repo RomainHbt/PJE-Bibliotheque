@@ -20,7 +20,7 @@ public class BooksDataSource {
 
     private SQLiteDatabase database;
     private DbHelper helper;
-    private String[] allColumns = {DbHelper.COLUMN_ID, "author", "title", "isbn"};
+    private String[] allColumns = {DbHelper.COLUMN_ID, "author", "title", "isbn", "description", "imageUrl"};
 
     public BooksDataSource(Context context) {
         helper = new DbHelper(context);
@@ -47,6 +47,8 @@ public class BooksDataSource {
         values.put("author", book.getAuthors());
         values.put("title", book.getTitle());
         values.put("isbn", book.getIsbn());
+        values.put("description", book.getDescription());
+        values.put("imageUrl", book.getImageUrl());
 
         // Insert la nouvelle valeur dans la DB. Recupere l'ID en retour
         long insertId = database.insert(DbHelper.TABLE_BOOKS, null, values);
