@@ -11,6 +11,7 @@ import android.widget.SimpleAdapter;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.R;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.activity.SearchDetailsActivity;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.activity.SearchForm;
+import fr.univ_lille1.giraudet_hembert.bibliotheque.adapters.BookAdapter;
 
 /**
  * Created by hembert on 17/11/16.
@@ -25,9 +26,7 @@ public class SearchListFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        setListAdapter(new SimpleAdapter(getActivity(), SearchForm.listOfBook, R.layout.book_list_item,
-                new String[] {"img", "author", "title", "isbn"},
-                new int[] {R.id.img, R.id.author, R.id.title, R.id.isbn}));
+        //setListAdapter(SearchForm.adapter);
 
         // Check to see if we have a frame in which to embed the details
         // fragment directly in the containing UI.

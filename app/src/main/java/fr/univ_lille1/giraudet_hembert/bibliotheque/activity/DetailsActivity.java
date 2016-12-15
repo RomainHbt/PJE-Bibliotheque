@@ -26,7 +26,6 @@ public class DetailsActivity extends Activity {
         if (savedInstanceState == null) {
             // During initial setup, plug in the details fragment.
             DetailsFragment details = new DetailsFragment();
-            details.setParent((BookList)getParent());
             details.setArguments(getIntent().getExtras());
             getFragmentManager().beginTransaction().add(android.R.id.content, details).commit();
         }

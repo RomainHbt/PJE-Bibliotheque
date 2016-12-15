@@ -30,7 +30,7 @@ public class Book implements Serializable {
 
     public Book(long id, String authors, String title, String isbn, String series,
                 List<Integer> genreId, String editor, int cover, String year, String summary,
-                List<Integer> illustrationsId, List<String> notes) {
+                List<Integer> illustrationsId, List<String> notes, String imageUrl) {
         super();
         this.id = id;
         this.authors = authors;
@@ -44,6 +44,7 @@ public class Book implements Serializable {
         this.summary = summary;
         this.illustrationsId = illustrationsId;
         this.notes = notes;
+        this.imageUrl = imageUrl;
     }
 
     public String getIsbn() {
@@ -123,8 +124,6 @@ public class Book implements Serializable {
     }
     public String getImageUrl() { return imageUrl; }
     public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
 
     public void setSummary(String summary) {
         this.summary = summary;
@@ -145,7 +144,6 @@ public class Book implements Serializable {
     public void setNotes(List<String> notes) {
         this.notes = notes;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -190,7 +188,7 @@ public class Book implements Serializable {
     @Override
     public String toString() {
         String res = "";
-        res += "Authors : "+this.getAuthor()+"\n";
+        res += "Authors : "+this.getAuthors()+"\n";
         res += "Title : "+this.getTitle()+"\n";
         return res;
     }

@@ -1,6 +1,7 @@
 package fr.univ_lille1.giraudet_hembert.bibliotheque.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -67,6 +68,7 @@ public class BookList extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         //dataSource.close();
+        
     }
 
     @Override
@@ -88,7 +90,7 @@ public class BookList extends AppCompatActivity {
      */
     public boolean goSimpleSearch(MenuItem menuItem) {
         Intent intent = new Intent(BookList.this, SearchForm.class);
-        startActivityForResult(intent, SIMPLE_SEARCH_REQUEST);
+        startActivityForResult(intent, 2);
         return true;
     }
 }

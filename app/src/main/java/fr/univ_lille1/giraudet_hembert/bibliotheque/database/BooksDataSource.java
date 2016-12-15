@@ -47,7 +47,7 @@ public class BooksDataSource {
         values.put("author", book.getAuthors());
         values.put("title", book.getTitle());
         values.put("isbn", book.getIsbn());
-        values.put("description", book.getDescription());
+        values.put("description", book.getSummary());
         values.put("imageUrl", book.getImageUrl());
 
         // Insert la nouvelle valeur dans la DB. Recupere l'ID en retour
@@ -107,7 +107,7 @@ public class BooksDataSource {
      * @return Book venant du cursor
      */
     private Book cursorToBook(Cursor cursor) {
-        Book comment = new Book(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), null, null, null, 0, null, null, null, null);
+        Book comment = new Book(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), null, null, null, 0, null, cursor.getString(4), null, null, cursor.getString(5));
         return comment;
     }
 

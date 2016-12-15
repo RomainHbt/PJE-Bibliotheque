@@ -4,9 +4,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +18,7 @@ import java.net.URL;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.R;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.activity.SearchForm;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.model.Book;
+import fr.univ_lille1.giraudet_hembert.bibliotheque.model.BookCollection;
 
 /**
  * Created by hembert on 01/12/16.
@@ -65,20 +68,32 @@ public class SearchDetailsFragment extends DetailsFragment {
 
             @Override
             protected void onPostExecute(Void result) {
-                if (bmp != null)
+                if (bmp != null) {
                     image.setImageBitmap(bmp);
+                }
             }
 
         }.execute();
 
         TextView author = (TextView) myInflatedView.findViewById(R.id.book_details_author_text);
-        author.setText(book.getAuthor());
+        author.setText(book.getAuthors());
         TextView title = (TextView) myInflatedView.findViewById(R.id.book_details_title_text);
         title.setText(book.getTitle());
         TextView isbn = (TextView) myInflatedView.findViewById(R.id.book_details_isbn_text);
         isbn.setText(book.getIsbn());
         TextView description = (TextView) myInflatedView.findViewById(R.id.book_details_description_text);
-        description.setText(book.getDescription());
+        description.setText(book.getSummary());
+
+        Button btn = (Button) myInflatedView.findViewById(R.id.search_details_add_btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BookCollection.getInstance().add(book);
+                getActivity().finish();
+            }
+        });
+
+
 
         return myInflatedView;
     }

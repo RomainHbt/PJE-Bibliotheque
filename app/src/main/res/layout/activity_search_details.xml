@@ -112,4 +112,10 @@
             android:id="@+id/book_details_description_text"
             android:textStyle="normal|italic" />
     </LinearLayout>
+
+    <Button
+        android:text="Ajouter à la collection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/search_details_add_btn" />
 </LinearLayout>

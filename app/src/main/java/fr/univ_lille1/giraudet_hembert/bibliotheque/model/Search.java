@@ -3,6 +3,7 @@ package fr.univ_lille1.giraudet_hembert.bibliotheque.model;
 import android.content.Context;
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -30,14 +31,19 @@ public class Search {
 
     private static final String GOOGLE_BOOKS_API_URL = "https://www.googleapis.com/books/v1/volumes?q=";
 
+    public static int ALL_MODE = 0;
+    public static int ISBN_MODE = 1;
+
     private String term;
     private Context context;
-    private List<Book> resultList;
+    public List<Book> resultList;
+    private int mode;
 
-    public Search(Context context, String term){
+    public Search(Context context, String term, int mode){
         this.context = context;
         this.term = term;
         this.resultList = null;
+        this.mode = mode;
     }
 
     public void exec(){
@@ -48,6 +54,8 @@ public class Search {
             e.printStackTrace();
         }
         String url = GOOGLE_BOOKS_API_URL + query;
+        if(mode == ISBN_MODE)
+            url = GOOGLE_BOOKS_API_URL + "isbn:" + query;
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this.context);
 
@@ -57,7 +65,10 @@ public class Search {
                     @Override
                     public void onResponse(String response) {
                         resultList = parseResult(response);
-                        //updateBookList(resultList);
+                        if(!resultList.isEmpty())
+                            BookCollection.getInstance().add(resultList.get(0));
+                        else
+                            Toast.makeText(context, "Non disponible.", Toast.LENGTH_SHORT).show();
                     }
                 },
                 new Response.ErrorListener() {
@@ -92,7 +103,7 @@ public class Search {
 
                 String authors;
                 try{
-                    authors = bookInfos.getJSONArray("authors").join(", ");
+                    authors = bookInfos.getJSONArray("authors").join(", ").replace("\"", "");
                 } catch(JSONException e){
                     authors = "Auteurs inconnus";
                 }
@@ -119,7 +130,7 @@ public class Search {
                 }
 
                 Book book = new Book(authors, title, isbn);
-                book.setDescription(description);
+                book.setSummary(description);
                 book.setImageUrl(image);
 
                 resultList.add(book);
