@@ -7,9 +7,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -30,7 +32,7 @@ public class BookFragment extends ListFragment {
     boolean mDualPane;
     int mCurCheckPosition = 0;
 
-    public SimpleAdapter adapter;
+    public BaseAdapter adapter;
 
     static final int ADD_BOOK_REQUEST = 1;
     static final int RC_BARCODE_CAPTURE = 2;
@@ -155,7 +157,7 @@ public class BookFragment extends ListFragment {
                 if(!BookCollection.getInstance().add(newBook)){
                     showDetails(BookCollection.getInstance().indexOf(newBook));
                 } else {
-                    // Popup avertissant de l'existance du livre
+                    Toast.makeText(getActivity(), "Isbn déjà existant.", Toast.LENGTH_SHORT).show();
                 }
             }
         } else if(requestCode == RC_BARCODE_CAPTURE) {
@@ -163,8 +165,14 @@ public class BookFragment extends ListFragment {
                 if (data != null) {
                     Barcode barcode = data.getParcelableExtra(BarcodeCaptureActivity.BarcodeObject);
 
-                    Search search = new Search(getActivity(), barcode.displayValue, Search.ISBN_MODE);
-                    search.exec();
+                    Book b = BookCollection.getInstance().getByIsbn(barcode.displayValue);
+
+                    if(b != null) {
+                        showDetails(BookCollection.getInstance().indexOf(b));
+                    } else {
+                        Search search = new Search(getActivity(), barcode.displayValue, Search.ISBN_MODE);
+                        search.exec();
+                    }
                 } else {
                     //statusMessage.setText(R.string.barcode_failure);
                     Log.d("Barcode:", "No barcode captured, intent data is null");

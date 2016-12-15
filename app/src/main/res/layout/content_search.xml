@@ -5,10 +5,6 @@
     android:id="@+id/content_search"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="fr.univ_lille1.giraudet_hembert.bibliotheque.activity.SearchForm"
     tools:showIn="@layout/activity_search">
@@ -36,9 +32,11 @@
 
         <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent" android:layout_height="match_parent">
-            <fragment class="fr.univ_lille1.giraudet_hembert.bibliotheque.fragment.SearchListFragment"
-                    android:id="@+id/resultListView"
-                    android:layout_width="match_parent" android:layout_height="match_parent" />
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/search_listView" />
         </FrameLayout>
     </LinearLayout>
 </RelativeLayout>

@@ -68,6 +68,7 @@ public class BookList extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         //dataSource.close();
+        
     }
 
     @Override

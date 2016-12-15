@@ -1,8 +1,10 @@
 package fr.univ_lille1.giraudet_hembert.bibliotheque.fragment;
 
 import android.app.Fragment;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +14,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.MultiAutoCompleteTextView;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.InputStream;
+import java.net.URL;
 
 import fr.univ_lille1.giraudet_hembert.bibliotheque.R;
-import fr.univ_lille1.giraudet_hembert.bibliotheque.activity.BookList;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.model.Book;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.model.BookCollection;
 
@@ -51,8 +52,36 @@ public class DetailsFragment extends Fragment {
 
         View myInflatedView = inflater.inflate(R.layout.book_detail, container,false);
 
-        ImageView image = (ImageView) myInflatedView.findViewById(R.id.book_details_img);
-        image.setImageResource(R.mipmap.ic_launcher);
+        final ImageView imageView = (ImageView) myInflatedView.findViewById(R.id.book_details_img);
+
+        if(book.getImageUrl() == null) {
+            imageView.setImageResource(R.mipmap.ic_launcher);
+        } else {
+            final Bitmap[] bmp = new Bitmap[1];
+            new AsyncTask<Void, Void, Void>() {
+                @Override
+                protected Void doInBackground(Void... params) {
+                    try {
+                        InputStream in = new URL(book.getImageUrl()).openStream();
+                        bmp[0] = BitmapFactory.decodeStream(in);
+                    } catch (Exception e) {
+                        // log error
+                    }
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute(Void result) {
+                    if (bmp[0] != null) {
+                        imageView.setImageBitmap(bmp[0]);
+                    } else {
+                        imageView.setImageResource(R.mipmap.ic_launcher);
+                    }
+                }
+
+            }.execute();
+        }
+
         final EditText author = (EditText) myInflatedView.findViewById(R.id.book_details_author_edittext);
         author.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -122,7 +151,7 @@ public class DetailsFragment extends Fragment {
         });
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(myInflatedView.getContext(),
-                android.R.layout.simple_dropdown_item_1line, COUNTRIES);
+                android.R.layout.simple_dropdown_item_1line, GENRE);
         MultiAutoCompleteTextView textView = (MultiAutoCompleteTextView) myInflatedView.findViewById(R.id.book_details_genre_autocomplete);
         textView.setAdapter(adapter);
         textView.setThreshold(1);
@@ -130,7 +159,7 @@ public class DetailsFragment extends Fragment {
         return myInflatedView;
     }
 
-    private static final String[] COUNTRIES = new String[] {
-            "Belgium", "France", "Italy", "Germany", "Spain"
+    private static final String[] GENRE = new String[] {
+            "Science-Fiction", "Fantasy", "Thriller", "Essai", "Polar"
     };
 }

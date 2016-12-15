@@ -17,10 +17,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -43,14 +46,17 @@ import java.util.List;
 import java.util.Map;
 
 import fr.univ_lille1.giraudet_hembert.bibliotheque.R;
+import fr.univ_lille1.giraudet_hembert.bibliotheque.adapters.BookAdapter;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.model.Book;
 import fr.univ_lille1.giraudet_hembert.bibliotheque.model.Search;
 
 public class SearchForm extends AppCompatActivity {
 
     public static List<Book> books = new ArrayList<>();
-    public static List<Map<String, String>> listOfBook = new ArrayList<>();
     public static String search;
+    private BaseAdapter adapter;
+
+    private ListView listView;
 
     private static final String GOOGLE_BOOKS_API_URL = "https://www.googleapis.com/books/v1/volumes?q=";
 
@@ -62,8 +68,16 @@ public class SearchForm extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        listOfBook.clear();
-        books.clear();
+        listView = (ListView) findViewById(R.id.search_listView);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent();
+                intent.setClass(getApplicationContext(), SearchDetailsActivity.class);
+                intent.putExtra("index", position);
+                startActivity(intent);
+            }
+        });
 
         EditText searchField = (EditText) findViewById(R.id.searchField);
         searchField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -84,50 +98,6 @@ public class SearchForm extends AppCompatActivity {
         });
     }
 
-    /**
-     * Met à jour la liste des livres
-     */
-    public void updateBookList(List<Book> res) {
-        listOfBook.clear();
-
-        Bitmap bmp;
-        ImageView image;
-
-        for (Book book : res) {
-            Log.d("Book", book.toString());
-            Map<String, String> bookMap = new HashMap<>();
-
-            bmp = null;
-            image = (ImageView) findViewById(R.id.img);
-
-            try {
-                InputStream in = new URL(book.getImageUrl()).openStream();
-                bmp = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                // log error
-            }
-
-            if (bmp != null)
-                image.setImageBitmap(bmp);
-
-            bookMap.put("img", String.valueOf(R.mipmap.ic_launcher)); // use available img
-            bookMap.put("author", book.getAuthors());
-            bookMap.put("title", book.getTitle());
-            bookMap.put("isbn", book.getIsbn());
-            listOfBook.add(bookMap);
-        }
-
-        this.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                View view = findViewById(R.id.resultListView);
-                view.invalidate();
-                view.requestLayout();
-            }
-        });
-
-    }
-
     public void exec(){
         String query = null;
         try {
@@ -145,7 +115,9 @@ public class SearchForm extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         books = parseResult(response);
-                        updateBookList(books);
+                        Toast.makeText(getApplicationContext(), books.get(0).getTitle(), Toast.LENGTH_SHORT).show();
+                        adapter = new BookAdapter(getApplicationContext(), books);
+                        listView.setAdapter(adapter);
                     }
                 },
                 new Response.ErrorListener() {
@@ -180,7 +152,7 @@ public class SearchForm extends AppCompatActivity {
 
                 String authors;
                 try{
-                    authors = bookInfos.getJSONArray("authors").join(", ");
+                    authors = bookInfos.getJSONArray("authors").join(", ").replace("\"","");
                 } catch(JSONException e){
                     authors = "Auteurs inconnus";
                 }

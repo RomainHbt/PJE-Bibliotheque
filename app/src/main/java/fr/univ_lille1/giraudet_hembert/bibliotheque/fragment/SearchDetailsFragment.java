@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,8 +68,9 @@ public class SearchDetailsFragment extends DetailsFragment {
 
             @Override
             protected void onPostExecute(Void result) {
-                if (bmp != null)
+                if (bmp != null) {
                     image.setImageBitmap(bmp);
+                }
             }
 
         }.execute();
@@ -90,6 +92,8 @@ public class SearchDetailsFragment extends DetailsFragment {
                 getActivity().finish();
             }
         });
+
+
 
         return myInflatedView;
     }
