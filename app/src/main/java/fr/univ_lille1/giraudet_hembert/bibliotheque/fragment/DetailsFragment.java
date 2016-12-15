@@ -22,9 +22,6 @@ import fr.univ_lille1.giraudet_hembert.bibliotheque.model.BookCollection;
 
 public class DetailsFragment extends Fragment {
 
-    private BookFragment list;
-    private BookList parent;
-
     /**
      * Create a new instance of DetailsFragment, initialized to
      * show the text at 'index'.
@@ -36,25 +33,7 @@ public class DetailsFragment extends Fragment {
         args.putInt("index", index);
         f.setArguments(args);
 
-        f.setList(list);
-
         return f;
-    }
-
-    public BookFragment getList() {
-        return list;
-    }
-
-    public void setList(BookFragment list) {
-        this.list = list;
-    }
-
-    public BookList getParent() {
-        return parent;
-    }
-
-    public void setParent(BookList parent) {
-        this.parent = parent;
     }
 
     public int getShownIndex() {
@@ -104,6 +83,12 @@ public class DetailsFragment extends Fragment {
             }
         });
         isbn.setText(book.getIsbn());
+        EditText year = (EditText) myInflatedView.findViewById(R.id.book_details_year_edittext);
+        year.setText(book.getYear());
+        EditText editor = (EditText) myInflatedView.findViewById(R.id.book_details_editor_edittext);
+        editor.setText(book.getEditor());
+        EditText summary = (EditText) myInflatedView.findViewById(R.id.book_details_summary_edittext);
+        summary.setText(book.getSummary());
         Button modify = (Button) myInflatedView.findViewById(R.id.book_details_modify_button);
         modify.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,10 +109,6 @@ public class DetailsFragment extends Fragment {
                 if(!hasError) {
                     Book newBook = new Book(author.getText().toString(), title.getText().toString(), isbn.getText().toString());
                     BookCollection.getInstance().update(book,newBook);
-                    if(list!=null)
-                        list.adapter.notifyDataSetChanged();
-                    else
-                        getActivity().finish();
                 }
             }
         });
@@ -136,11 +117,7 @@ public class DetailsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 BookCollection.getInstance().remove(book);
-                if(list!=null) {
-                    list.adapter.notifyDataSetChanged();
-                    list.showDetails(getShownIndex() - 1);
-                } else
-                    getActivity().finish();
+                getActivity().finish();
             }
         });
 
