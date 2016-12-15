@@ -3,6 +3,7 @@ package fr.univ_lille1.giraudet_hembert.bibliotheque.model;
 import android.content.Context;
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -66,6 +67,8 @@ public class Search {
                         resultList = parseResult(response);
                         if(!resultList.isEmpty())
                             BookCollection.getInstance().add(resultList.get(0));
+                        else
+                            Toast.makeText(context, "Non disponible.", Toast.LENGTH_SHORT).show();
                     }
                 },
                 new Response.ErrorListener() {
@@ -100,7 +103,7 @@ public class Search {
 
                 String authors;
                 try{
-                    authors = bookInfos.getJSONArray("authors").join(", ");
+                    authors = bookInfos.getJSONArray("authors").join(", ").replace("\"", "");
                 } catch(JSONException e){
                     authors = "Auteurs inconnus";
                 }
